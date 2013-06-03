@@ -12,32 +12,22 @@ import threading;
 from tools.CompressStrings import CompressStrings
 
 
-HOST, PORT = "localhost", 10000
+HOST, PORT = "localhost", 10002
 
 logging.config.fileConfig("logging.conf")
-logger = logging.getLogger('ServerConsoleLogger')
+logger = logging.getLogger('ConsoleLogger')
 
 
-class Send:
+''' WIP
+    class Send:
     def __init__(self, msg):
         pass
          
     def mysend(self, msg):
-        totalsent = 0
-        while totalsent < msg.length:
-            sent = self.sock.send(msg[totalsent:])
-            if sent == 0:
-                raise RuntimeError("socket connection broken")
-            totalsent = totalsent + sent
+        pass
     
     def myreceive(self):
-        msg = ''
-        '''while len(msg) < MSGLEN:
-            chunk = self.sock.recv(MSGLEN-len(msg))
-            if chunk == '':
-                raise RuntimeError("socket connection broken")
-            msg = msg + chunk
-        return msg'''
+        pass'''
     
 class TCPServer:
     def __init__(self):
@@ -50,17 +40,20 @@ class TCPServer:
     def bind(self, server_address, server_port):
         self.sock.bind((server_address, server_port))
     
+    '''Refactor and TODO '''
     def client(self, connection, client_address):
         self.clientThreads.append(connection)
         self.clientNumber += 1
         ex=[]
-        for i in range(0,1024*1024):
+        #test for debug
+        for _ in range(0,1024*1024):
             ex.append('a')
-        connection.send(CompressStrings.compress(ex))
+        connection.sendall(CompressStrings.compress(ex))
+        connection.shutdown(socket.SHUT_WR)
         print(client_address)
         
     def serve_forever(self):
-        self.sock.listen(1)
+        self.sock.listen(5)
         #self.__lock__.acquire()
         self.running = True
         while self.running:
@@ -86,6 +79,6 @@ if __name__ == '__main__':
         sys.exit(1)
     
     server_thread.start()
-    server.shut_down()
+    #server.shut_down()
     server_thread.join(timeout=None)
     print("Hello Word")
