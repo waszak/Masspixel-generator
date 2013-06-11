@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{cc24367e-a62a-4115-8c6f-2e87547f6eae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="GUI\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="GUI\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="GUI\Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="GUI\Generated Files\Debug">
+      <UniqueIdentifier>{8241d1b8-07c5-48ae-9281-ae76accae637}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="GUI\Generated Files\Release">
+      <UniqueIdentifier>{89d6dcbf-c3ec-411a-a460-1ac625a2d8cd}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="GUI\Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Raymarcher">
+      <UniqueIdentifier>{810fba04-4e17-4814-bca9-1989d84bc5cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raymarcher\Objects">
+      <UniqueIdentifier>{bf3c0fea-e4ad-4cae-913a-c1ae8d79af6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raymarcher\Mods">
+      <UniqueIdentifier>{30ac57c7-1c67-4a48-b886-433885ab8da4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raymarcher\utils">
+      <UniqueIdentifier>{7b3dbc8e-6b15-4ebe-a765-d97cb43a64dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raymarcher\utils\math">
+      <UniqueIdentifier>{afe9b52b-8bf7-4a19-ad50-649132eedc0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raymarcher\utils\image">
+      <UniqueIdentifier>{6d3d0be4-ea6b-42c3-8c53-1a492353023a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raymarcher\SDL">
+      <UniqueIdentifier>{87c72ade-5e66-44e3-9328-845fbcd619a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raymarcher\Light &amp; materials">
+      <UniqueIdentifier>{4fa01aab-8ebf-4c9d-a491-16a1a24816fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raymarcher\Camera &amp; scene">
+      <UniqueIdentifier>{5816bca6-2e19-4a36-8aac-f74352917083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glue">
+      <UniqueIdentifier>{138ccff8-4b36-4a8d-9ee2-5ad606f68163}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>GUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>GUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>GUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mainwindow.cpp">
+      <Filter>GUI\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mainwindow.cpp">
+      <Filter>GUI\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_mainwindow.cpp">
+      <Filter>GUI\Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Raymarcher.cpp">
+      <Filter>Raymarcher</Filter>
+    </ClCompile>
+    <ClCompile Include="Exception.cpp">
+      <Filter>Raymarcher\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ISerializable.cpp">
+      <Filter>Raymarcher\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Raymarcher\utils\math</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDesc.cpp">
+      <Filter>Raymarcher\SDL</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Raymarcher\utils\image</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectFactory.cpp">
+      <Filter>Raymarcher\SDL</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Raymarcher\Light &amp; materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Lighting.cpp">
+      <Filter>Raymarcher\Light &amp; materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Raymarcher\Camera &amp; scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Raymarcher\Camera &amp; scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Proxy.cpp">
+      <Filter>Glue</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxHighlighter.cpp">
+      <Filter>GUI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="console_renderer.cpp">
+      <Filter>GUI\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>GUI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
+      <Filter>GUI\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="raymarcher.hpp">
+      <Filter>Raymarcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Boolean.hpp">
+      <Filter>Raymarcher\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.hpp">
+      <Filter>Raymarcher\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Fractal.hpp">
+      <Filter>Raymarcher\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="IObject.hpp">
+      <Filter>Raymarcher\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ISerializable.hpp">
+      <Filter>Raymarcher\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Cylinder.hpp">
+      <Filter>Raymarcher\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.hpp">
+      <Filter>Raymarcher\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.hpp">
+      <Filter>Raymarcher\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="PointMod.hpp">
+      <Filter>Raymarcher\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.hpp">
+      <Filter>Raymarcher\utils\math</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixGen.hpp">
+      <Filter>Raymarcher\utils\math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.hpp">
+      <Filter>Raymarcher\utils\math</Filter>
+    </ClInclude>
+    <ClInclude Include="RoundedCube.hpp">
+      <Filter>Raymarcher\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Torus.hpp">
+      <Filter>Raymarcher\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.hpp">
+      <Filter>Raymarcher\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.hpp">
+      <Filter>Raymarcher\utils\math</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorFunctions.hpp">
+      <Filter>Raymarcher\utils\math</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.hpp">
+      <Filter>Raymarcher\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TransRot.hpp">
+      <Filter>Raymarcher\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="Scale.hpp">
+      <Filter>Raymarcher\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDesc.hpp">
+      <Filter>Raymarcher\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="ParserException.hpp">
+      <Filter>Raymarcher\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.hpp">
+      <Filter>Raymarcher\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hpp">
+      <Filter>Raymarcher\utils\image</Filter>
+    </ClInclude>
+    <ClInclude Include="image.hpp">
+      <Filter>Raymarcher\utils\image</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFactory.hpp">
+      <Filter>Raymarcher\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="Lighting.hpp">
+      <Filter>Raymarcher\Light &amp; materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.hpp">
+      <Filter>Raymarcher\Light &amp; materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.hpp">
+      <Filter>Raymarcher\Light &amp; materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Raymarcher\Camera &amp; scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.hpp">
+      <Filter>Raymarcher\Camera &amp; scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.hpp">
+      <Filter>Raymarcher\Camera &amp; scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Proxy.hpp">
+      <Filter>Glue</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxHighlighter.hpp">
+      <Filter>GUI\Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Duplicate.hpp">
+      <Filter>Raymarcher\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="Cone.hpp">
+      <Filter>GUI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Translate.hpp">
+      <Filter>Raymarcher\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotate.hpp">
+      <Filter>Raymarcher\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects.hpp">
+      <Filter>Raymarcher</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="mainwindow.h">
+      <Filter>GUI\Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mainwindow.ui">
+      <Filter>GUI\Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mainwindow.qrc">
+      <Filter>GUI\Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>
