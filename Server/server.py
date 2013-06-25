@@ -62,11 +62,12 @@ class TCPServer:
         try:
             connection.sendall(CompressStrings.compress(msg))
             connection.shutdown(socket.SHUT_WR)
+            print()
             data = ET.fromstring(self.downloadData(connection))
             for result in data.findall('./RESULT'):
                 _id = result.get('ID')
                 out = open('img\\id_'+_id+'.png','wb+')
-                out.write(base64.b64decode(result.findtext('').encode('ASCII')))
+                out.write(base64.b64decode(result.findtext('.').encode('ASCII')))
             connection.close()
             self.tasks.returnComplitedTasks(tasks)
             if len(self.tasks.completed_tasks) == self.tasks.numberoftasks:
@@ -160,7 +161,6 @@ class Tasks:
             self.tasks[_id] =  '%.5f' %round(i,5)
             _id += 1
         self.numberoftasks= _id - 1
-        print(self.tasks)
     
     def getFreeTasks(self, number_of_tasks):
         freeTasks={}

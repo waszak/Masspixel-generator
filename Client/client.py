@@ -113,7 +113,7 @@ class Job:
         self.width= p.get('WIDTH')
         self.height = p.get('HEIGHT')
         for task in root.findall('./TASKS/TASK'):
-            x = task.findtext('').strip().split(' ')
+            x = task.findtext('.').strip().split(' ')
             self.tasks[x[0]]= x[1]
     
     def doTasks(self, path):
