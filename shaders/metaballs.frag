@@ -1,74 +1,72 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-<html><head><meta name="qrichtext" content="1" /><style type="text/css">
-p, li { white-space: pre-wrap; }
-</style></head><body style=" font-family:'Consolas'; font-size:9pt; font-weight:400; font-style:normal;">
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">uniform vec2 resolution;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">uniform float time;</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">vec3 origin = vec3(0,0,-7.);//vec3(cos(time * 0.5) * 0.5,1.5 + sin(time),-12.5 + sin(time * 0.25));</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">float sphere(vec3 p, float s)</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">{</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	return length(p) - s;<br />}</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">float plane(vec3 p, vec3 n)</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">{</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	return dot(p, n);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">}</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">vec3 duplicate(vec3 p, vec3 m)</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">{</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	return mod(p, m) - m * 0.5;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">} </span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">float f(vec3 p)</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">{</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	//float a = sin(p.z - p.x * 3 + time * 6) * (abs(cos(time * 3))) * 0.4 + plane(p,vec3(0.,1.,0.));</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;"> float b = sphere(duplicate(p - vec3(0.,cos(time) * 1.,-time*40),vec3(12.5,3.5, 14.5)), 1.);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	float m1 = sphere(p - vec3(sin(time * 1.4) * 1.9,cos(time + time) * 0.4,sin(time) + 4.), 1.);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	float m2 = sphere(p - vec3(sin(time) * 1.9,cos(time) * 1.1, + cos(time) + 5.),1.);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	float srf = 1./(m1+0.5+0.005) + 1./(m2+0.5+0.005);</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	float dsrf = 1. / srf - 0.25;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	return min(dsrf, b);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	//return min(a,b);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">}</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">vec3 normal(vec3 p) {</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	vec2 e = vec2(0.005, 0.0);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	return (vec3(f(p+e.xyy),f(p+e.yxy),f(p+e.yyx))-f(p))/e.x;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">}</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">vec3 rm(vec3 ray)</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">{</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	float dist = 0.5;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;"> int step;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;"> float d;</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;"> for (step = 0; step &lt; 64; ++step)</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;"> {</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">   vec3 t = ray * dist + origin;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">   d = f(t);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">   if (d &lt; 0.05) // epsilon</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">				return vec3(0.36,0.05,0.05)+ dot(vec3(1,1,0), reflect(normal(t), ray));//return vec3(cos(t.z),sin(t.x), mod(t.y,2.));</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">		dist += d;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;"> }</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Lucida Console'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	float s = 1. - dist / 250.;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">	return vec3(0.24,0.513, 0.62) * s;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">//vec3((1.- length(gl_FragCoord.xy / resolution - 0.5)));</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Lucida Console'; font-size:8pt;">}</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Courier New'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Courier New'; font-size:8pt;">void main()</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Courier New'; font-size:8pt;">{</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Courier New'; font-size:8pt;"> float ratio = resolution.x / resolution.y;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Courier New'; font-size:8pt;"> float fovY = tan(0.45 * 0.5);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Courier New'; font-size:8pt;"> float fovX = fovY * ratio;</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Courier New'; font-size:8pt;"> vec3 pos = vec3(-1.0 + 2. * gl_FragCoord.xy / resolution, 1);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Courier New'; font-size:8pt;"> vec3 ray = normalize( pos * vec3(fovX, fovY, 1.) );</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0; font-family:'Courier New'; font-size:8pt;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Courier New'; font-size:8pt;">	gl_FragColor = vec4(rm(ray), 1.);</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;"><span style=" font-family:'Courier New'; font-size:8pt;">//vec4(abs(pos.y),abs(pos.x),1,1);<br />}</span></p></body></html>
+uniform vec2 resolution;
+uniform float time;
+
+vec3 origin = vec3(0,0,-7.);//vec3(cos(time * 0.5) * 0.5,1.5 + sin(time),-12.5 + sin(time * 0.25));
+
+float sphere(vec3 p, float s)
+{
+	return length(p) - s;
+}
+
+float plane(vec3 p, vec3 n)
+{
+	return dot(p, n);
+}
+
+
+vec3 duplicate(vec3 p, vec3 m)
+{
+	return mod(p, m) - m * 0.5;
+} 
+
+
+float f(vec3 p)
+{
+	//float a = sin(p.z - p.x * 3 + time * 6) * (abs(cos(time * 3))) * 0.4 + plane(p,vec3(0.,1.,0.));
+ float b = sphere(duplicate(p - vec3(0.,cos(time) * 1.,-time*40),vec3(12.5,3.5, 14.5)), 1.);
+	
+	float m1 = sphere(p - vec3(sin(time * 1.4) * 1.9,cos(time + time) * 0.4,sin(time) + 4.), 1.);
+	float m2 = sphere(p - vec3(sin(time) * 1.9,cos(time) * 1.1, + cos(time) + 5.),1.);
+	float srf = 1./(m1+0.5+0.005) + 1./(m2+0.5+0.005);
+
+	float dsrf = 1. / srf - 0.25;
+	return min(dsrf, b);
+	//return min(a,b);
+}
+
+vec3 normal(vec3 p) {
+	vec2 e = vec2(0.005, 0.0);
+	return (vec3(f(p+e.xyy),f(p+e.yxy),f(p+e.yyx))-f(p))/e.x;
+}
+
+vec3 rm(vec3 ray)
+{
+	float dist = 0.5;
+ int step;
+ float d;
+
+ for (step = 0; step < 64; ++step)
+ {
+   vec3 t = ray * dist + origin;
+   d = f(t);
+   if (d < 0.05) // epsilon
+				return vec3(0.36,0.05,0.05)+ dot(vec3(1,1,0), reflect(normal(t), ray));//return vec3(cos(t.z),sin(t.x), mod(t.y,2.));
+		dist += d;
+ }
+
+	float s = 1. - dist / 250.;
+	return vec3(0.24,0.513, 0.62) * s;
+//vec3((1.- length(gl_FragCoord.xy / resolution - 0.5)));
+}
+
+void main()
+{
+ float ratio = resolution.x / resolution.y;
+ float fovY = tan(0.45 * 0.5);
+ float fovX = fovY * ratio;
+ vec3 pos = vec3(-1.0 + 2. * gl_FragCoord.xy / resolution, 1);
+ vec3 ray = normalize( pos * vec3(fovX, fovY, 1.) );
+
+	gl_FragColor = vec4(rm(ray), 1.);
+//vec4(abs(pos.y),abs(pos.x),1,1);
+}
