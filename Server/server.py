@@ -23,6 +23,15 @@ NUMBER_TASKS_PER_CLIENT = 10 # arbitrary choosen number
 logging.config.fileConfig("logging.conf")
 logger = logging.getLogger('ConsoleLogger')
 
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc: # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else: raise
+
+
 #range with step 
 def drange(start, stop, step):
     r = start
@@ -56,7 +65,7 @@ class TCPServer:
             data = ET.fromstring(self.downloadData(connection))
             for result in data.findall('./RESULT'):
                 _id = result.get('ID')
-                out = open('id_'+_id+'.png','wb+')
+                out = open('img\\id_'+_id+'.png','wb+')
                 out.write(base64.b64decode(result.findtext('').encode('ASCII')))
             connection.close()
             self.tasks.returnComplitedTasks(tasks)
@@ -204,6 +213,10 @@ def parse_data(argv):
     return Scene(f_input, width, height, time, time_delta)
 
 if __name__ == '__main__':
+    mkdir_p("img")
+    os.system("rmdir /s /q img")
+    mkdir_p("img")
+    # && rmdir /s /q img && mkdir img")
     try:
         scene = parse_data(sys.argv)
     except Exception as ex:
@@ -229,7 +242,7 @@ if __name__ == '__main__':
     
     server_thread.start()
     server_thread.join(timeout=None)
-    os.system('bin\\ffmpeg.exe -f image2 -framerate 25 -pattern_type sequence -i "id_%d.png" -s 720x480 -y out.avi && bin\\ffplay.exe out.avi')
+    os.system('bin\\ffmpeg.exe -f image2 -framerate 25 -pattern_type sequence -i "img\\id_%d.png" -s 720x480 -y out.avi && bin\\ffplay.exe out.avi')
     
     
     

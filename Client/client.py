@@ -13,8 +13,9 @@ import socket
 import base64
 import sys
 import time
+import os
 import xml.etree.ElementTree as ET
-
+import subprocess
 sys.path.append('../tools')#add tools to pythonpath
 from tools.CompressStrings import CompressStrings, invalidCheckSumException
 
@@ -115,14 +116,16 @@ class Job:
             x = task.findtext('').strip().split(' ')
             self.tasks[x[0]]= x[1]
     
-    def doTasks(self):
-        #TODO
-        pass
-    
+    def doTasks(self, path):
+        os.chdir("bin")
+        for key in self.tasks:
+            #os.system('MasspixelRenderer.exe id_'+key+'.png ' +"../"+path+' ' +self.width+ ' '+ self.height+ ' '+ self.tasks[key])
+            subprocess.call(('MasspixelRenderer.exe', 'id_'+key+'.png ', "../"+path+' ' ,self.width+ ' ', self.height+ ' ', self.tasks[key]))
+        os.chdir("../")
     def getResult(self):
         stringResult = ResultXMLTag.ROOT_BEGIN + '\n'
         for key in self.tasks:
-            f = open('id_'+str(random.randint(2, 2))+'.png','rb+')
+            f = open('bin\\id_'+key+'.png','rb+')
             stringResult += ResultXMLTag.RESULT_BEGIN+' '+'ID=\''+key+'\'>\n'
             stringResult += ResultXMLTag.CDATA_BEGIN+'\n'
             stringResult +=  base64.b64encode(f.read()).decode('ascii')
@@ -140,7 +143,7 @@ if __name__ == "__main__":
             job = Job(data)
             job.saveScena('frag.frag')
             job.readTasks()
-            job.doTasks()
+            job.doTasks('frag.frag')
             client.sendResult(job.getResult())
             client.reconnect()
     except socket.error as ex:
