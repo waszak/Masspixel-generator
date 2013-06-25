@@ -17,11 +17,10 @@ class gzipCheckSum(gzip.GzipFile):
 class CompressStrings:
     TAG='<_string_>'
     @staticmethod
-    def compress( list_msg):
+    def compress( msg):
         out = io.BytesIO()
         f = gzip.GzipFile(fileobj=out, mode='w')
-        for msg in list_msg:
-            f.write(msg + CompressStrings.TAG)
+        f.write(bytes(msg, 'UTF-8'))
         f.close()
         result = out.getvalue()
         out.close()
@@ -35,4 +34,4 @@ class CompressStrings:
         except invalidCheckSumException as e:
             raise e
         f.close()
-        return result.split(CompressStrings.TAG)[:-1]
+        return result
