@@ -1,0 +1,3 @@
+ffmpeg.exe -f image2 -framerate 25 -pattern_type sequence -i "r_%d.jpg" -s 720x480 out.avi
+
+ewentualnie mo¿na siê wzorowaæ SO: http://stackoverflow.com/questions/2829113/ffmpeg-create-a-video-from-images
