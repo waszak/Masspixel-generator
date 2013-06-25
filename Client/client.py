@@ -33,9 +33,9 @@ class Client:
         self.connection.connect(self.server_address)
         self.connection.setblocking(False)
     
-    def reconnct(self):
+    def reconnect(self):
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.connection.connect()
+        self.connect()
         
     def sendResult(self,res):
         self.connection.sendall(CompressStrings.compress(res))
@@ -122,7 +122,7 @@ class Job:
     def getResult(self):
         stringResult = ResultXMLTag.ROOT_BEGIN + '\n'
         for key in self.tasks:
-            f = open('id_'+str(random.randint(1, 2))+'.png','rb+')
+            f = open('id_'+str(random.randint(2, 2))+'.png','rb+')
             stringResult += ResultXMLTag.RESULT_BEGIN+' '+'ID=\''+key+'\'>\n'
             stringResult += ResultXMLTag.CDATA_BEGIN+'\n'
             stringResult +=  base64.b64encode(f.read()).decode('ascii')
@@ -134,13 +134,15 @@ class Job:
 if __name__ == "__main__":
     client = Client(HOST, PORT)
     try:
-        client.connect()   
-        data = client.downloadData()
-        job = Job(data)
-        job.saveScena('scena.txt')
-        job.readTasks()
-        job.doTasks()
-        client.sendResult(job.getResult())
+        client.connect() 
+        while True:
+            data = client.downloadData()
+            job = Job(data)
+            job.saveScena('frag.frag')
+            job.readTasks()
+            job.doTasks()
+            client.sendResult(job.getResult())
+            client.reconnect()
     except socket.error as ex:
         logger.exception(ex)
         sys.exit(1)

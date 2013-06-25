@@ -1,8 +1,8 @@
-This is a FFmpeg Win64 static build by Kyle Schwarz.
+This is a FFmpeg Win32 static build by Kyle Schwarz.
 
 Zeranoe's FFmpeg Builds Home Page: <http://ffmpeg.zeranoe.com/builds/>
 
-This build was compiled on: Jun 24 2013, at: 17:15:47
+This build was compiled on: Jun 24 2013, at: 17:10:38
 
 FFmpeg version: 2013-06-24 git-bbe26ef
   libavutil      52. 37.101 / 52. 37.101

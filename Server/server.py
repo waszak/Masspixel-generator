@@ -15,6 +15,7 @@ import errno
 from tools.CompressStrings import CompressStrings
 import xml.etree.ElementTree as ET
 import base64
+import os
 
 HOST, PORT = "localhost", 10069
 NUMBER_TASKS_PER_CLIENT = 10 # arbitrary choosen number
@@ -57,7 +58,12 @@ class TCPServer:
                 _id = result.get('ID')
                 out = open('id_'+_id+'.png','wb+')
                 out.write(base64.b64decode(result.findtext('').encode('ASCII')))
+            connection.close()
+            self.tasks.returnComplitedTasks(tasks)
+            if len(self.tasks.completed_tasks) == self.tasks.numberoftasks:
+                self.running = False
         except Exception as ex:
+            self.tasks.returnFailedTasks(tasks)
             logger.exception(ex)
             connection.close()
         
@@ -144,6 +150,7 @@ class Tasks:
         for i in drange(0,self.scene.getDuration(),scene.getDeltaTime()):
             self.tasks[_id] =  '%.5f' %round(i,5)
             _id += 1
+        self.numberoftasks= _id - 1
         print(self.tasks)
     
     def getFreeTasks(self, number_of_tasks):
@@ -181,6 +188,10 @@ class Tasks:
     def returnFailedTasks(self, failed_tasks):
         for key in failed_tasks:
             self.tasks[key] = failed_tasks[key]
+    
+    def returnComplitedTasks(self, tasks):
+        for key in tasks:
+            self.completed_tasks[key] = tasks[key]
                 
 def parse_data(argv):
     if len(argv) != 6:
@@ -218,3 +229,7 @@ if __name__ == '__main__':
     
     server_thread.start()
     server_thread.join(timeout=None)
+    os.system('bin\\ffmpeg.exe -f image2 -framerate 25 -pattern_type sequence -i "id_%d.png" -s 720x480 -y out.avi && bin\\ffplay.exe out.avi')
+    
+    
+    
