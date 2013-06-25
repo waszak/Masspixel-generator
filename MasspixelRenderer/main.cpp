@@ -1,14 +1,26 @@
 #include "Renderer.h"
 #include "RenderTask.h"
 
-int main() {
+#include <cstdio>
+#include <cstdlib>
+
+int main(int argc, char *argv[]) {
+	if(argc < 6) {
+		printf("Too few arguments!\n");
+		return 1;
+	}
+	char *resultFilename = argv[1];
+	char *fragmentShaderFilename = argv[2];
+	int width = atoi(argv[3]);
+	int height = atoi(argv[4]);
+	float time = atof(argv[5]);
 	Renderer renderer;
 	renderer.init();
-	renderer.loadEffect("vert.vert", "spoko-efekt.frag");
-	RenderTask task(1, 800, 600, 12.0);
+	renderer.loadEffect("vert.vert", fragmentShaderFilename);
+	RenderTask task(width, height, time);
 	renderer.loadTask(&task);
 	renderer.renderCurrent();
-	renderer.saveToPNGFIle("render.png");
+	renderer.saveToPNGFIle(resultFilename);
 	renderer.terminate();
 	return 0;
 }
