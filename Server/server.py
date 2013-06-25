@@ -6,11 +6,15 @@ Created on 25-05-2013
 import sys
 sys.path.append('../tools')#add tools to pythonpath
 import socket
+import select
 from threading import Thread
 import logging.config
 import threading;
+import time
+import errno
 from tools.CompressStrings import CompressStrings
-
+import xml.etree.ElementTree as ET
+import base64
 
 HOST, PORT = "localhost", 10069
 NUMBER_TASKS_PER_CLIENT = 10 # arbitrary choosen number
@@ -31,6 +35,7 @@ class TCPServer:
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)#
         self.clientNumber = 0
+        self.chunk_size = 1024
         self.clientThreads = []
         self.running = False
         self.tasks = tasks
@@ -47,7 +52,11 @@ class TCPServer:
         try:
             connection.sendall(CompressStrings.compress(msg))
             connection.shutdown(socket.SHUT_WR)
-            print(client_address)
+            data = ET.fromstring(self.downloadData(connection))
+            for result in data.findall('./RESULT'):
+                _id = result.get('ID')
+                out = open('id_'+_id+'.png','wb+')
+                out.write(base64.b64decode(result.findtext('').encode('ASCII')))
         except Exception as ex:
             logger.exception(ex)
             connection.close()
@@ -62,6 +71,25 @@ class TCPServer:
     
     def shut_down(self):
         self.running = False
+        
+    def downloadData(self, connection):
+        data =b''
+        while 1:
+            try:
+                ready = select.select([connection], [], [], 0.01)
+                if not ready[0]:
+                    continue
+                chunk = connection.recv(self.chunk_size)
+                if not chunk: break
+                #logger.info('socket get chunk')
+                data += chunk
+            except socket.error as e:
+                if e.args[0] == errno.EWOULDBLOCK: 
+                    time.sleep(0.01)           # short delay, no tight loops
+                else:
+                    logger.error(e)
+                    break
+        return CompressStrings.decompress(data)     
 
 class Scene:
     def __init__(self,f_input, scene_width, scene_height, time, time_delta):
@@ -69,7 +97,7 @@ class Scene:
         self.time = time
         self.time_delta = time_delta
         self.width = scene_width
-        self.heught = scene_height
+        self.height = scene_height
     
     def getWidth(self):
         return self.width
@@ -93,14 +121,19 @@ class Scene:
         self._f_input.close()
 
 class Tasks:
-    WIDTH = "WIDTH="
-    HEIGHT= "HEIGHT="
+    ROOT_BEGIN = '<ROOT>'
+    ROOT_END = '</ROOT>'
+    WIDTH = 'WIDTH='
+    HEIGHT= 'HEIGHT='
     TASKS_BEGIN = '<TASKS>'
     TASKS_END = '</TASKS>'
     TASK_BEGIN = '<TASK>'
     TASK_END = '</TASK>'
-    SCENA_BEGIN = '<SCENA>'
+    SCENA_BEGIN = '<SCENA'# to add attributes
     SCENA_END = '</SCENA>'
+    CDATA_BEGIN = '<![CDATA['
+    CDATA_END = ']]>'
+    
     def __init__(self, scene):
         self.scene = scene
         
@@ -128,17 +161,21 @@ class Tasks:
         return freeTasks
     
     def tasksToString(self, tasks):
-        taskString = Tasks.TASKS_BEGIN+'\n'
+        taskString = Tasks.ROOT_BEGIN+'\n'
+        taskString += Tasks.TASKS_BEGIN+'\n'
         for key in tasks:
             taskString += Tasks.TASK_BEGIN+'\n'
             taskString += str(key) + ' '+ tasks[key]+'\n' 
             taskString += Tasks.TASK_END+'\n'
         taskString += Tasks.TASKS_END+'\n'
-        taskString += Tasks.WIDTH + str(self.scene.getWidth())  + '\n' 
-        taskString += Tasks.HEIGHT+ str(self.scene.getWidth()) + '\n'
-        taskString += Tasks.SCENA_BEGIN+'\n'
+        taskString += Tasks.SCENA_BEGIN+' '
+        taskString += Tasks.WIDTH +'\'' +str(self.scene.getWidth())+'\''  + ' ' 
+        taskString += Tasks.HEIGHT+'\''+ str(self.scene.getHeight())+'\'' + '>\n'
+        taskString += Tasks.CDATA_BEGIN+'\n'
         taskString += self.scene.getScene()
+        taskString += '\n'+Tasks.CDATA_END +'\n'
         taskString += Tasks.SCENA_END+'\n'
+        taskString += Tasks.ROOT_END+'\n'
         return taskString
             
     def returnFailedTasks(self, failed_tasks):

@@ -4,18 +4,21 @@ Created on 20-05-2013
 @author: Waszak
 '''
 
-
+import random
 import errno
 import logging
 import logging.config
 import select
 import socket
+import base64
 import sys
 import time
+import xml.etree.ElementTree as ET
+
 sys.path.append('../tools')#add tools to pythonpath
 from tools.CompressStrings import CompressStrings, invalidCheckSumException
 
-HOST, PORT = "localhost", 10002
+HOST, PORT = "localhost", 10069
 
 logging.config.fileConfig("logging.conf")
 logger = logging.getLogger('ConsoleLogger')
@@ -29,15 +32,14 @@ class Client:
     def connect(self):
         self.connection.connect(self.server_address)
         self.connection.setblocking(False)
-        self.connection.settimeout(0.1)
     
     def reconnct(self):
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connection.connect()
         
-    def getTasks(self):
-        pass
-    '''TODO, refactor'''
+    def sendResult(self,res):
+        self.connection.sendall(CompressStrings.compress(res))
+    
     def downloadData(self):
         data =b''
         while 1:
@@ -45,10 +47,9 @@ class Client:
                 ready = select.select([self.connection], [], [], 0.01)
                 if not ready[0]:
                     continue
-                logger.info('socket get sht')
                 chunk = self.connection.recv(self.chunk_size)
                 if not chunk: break
-                logger.info('socket get chunk')
+                #logger.info('socket get chunk')
                 data += chunk
             except socket.error as e:
                 if e.args[0] == errno.EWOULDBLOCK: 
@@ -56,30 +57,94 @@ class Client:
                 else:
                     logger.error(e)
                     break
-        #print( CompressStrings.decompress(data))
-        print( len(CompressStrings.decompress(data)))
-        
-def com(job_query, result_query):
+        return CompressStrings.decompress(data) 
+
+"""
+class ParseScene:
+    ROOT_BEGIN = '<ROOT>'
+    ROOT_END = '</ROOT>'
+    WIDTH = 'WIDTH='
+    HEIGHT= 'HEIGHT='
+    TASKS_BEGIN = '<TASKS>'
+    TASKS_END = '</TASKS>'
+    TASK_BEGIN = '<TASK>'
+    TASK_END = '</TASK>'
+    SCENA_BEGIN = '<SCENA>'
+    SCENA_END = '</SCENA>'
+"""
+    
+class ResultXMLTag:
+    ROOT_BEGIN = '<ROOT>'
+    ROOT_END = '</ROOT>'
+    RESULT_BEGIN='<RESULT'
+    RESULT_END='</RESULT>'
+    CDATA_BEGIN = '<![CDATA['
+    CDATA_END = ']]>'
+    
+"""def com(job_query, result_query):
     while True:
         result_query = { n: n for n in job_query}
         print (result_query)
-    
+"""    
 class Job:
-    def __init__(self, input):
-        self.input = input
+    def __init__(self,data):
+        self.data = data
+        
     def start(self):
         #TODO
         pass
     def result(self):
         self.output = 'finished'
         return True
-
+    
+    def saveScena(self, path):
+        root = ET.fromstring(self.data)
+        scena = root.findtext('SCENA').strip()
+        scena_file = open(path, 'w+')
+        scena_file.write(scena)
+        self.scena_path = scena_file.name
+        scena_file.close()
+    
+    def readTasks(self):
+        self.tasks = {}
+        root = ET.fromstring(self.data)
+        p = root.find('./SCENA')
+        self.width= p.get('WIDTH')
+        self.height = p.get('HEIGHT')
+        for task in root.findall('./TASKS/TASK'):
+            x = task.findtext('').strip().split(' ')
+            self.tasks[x[0]]= x[1]
+    
+    def doTasks(self):
+        #TODO
+        pass
+    
+    def getResult(self):
+        stringResult = ResultXMLTag.ROOT_BEGIN + '\n'
+        for key in self.tasks:
+            f = open('id_'+str(random.randint(1, 2))+'.png','rb+')
+            stringResult += ResultXMLTag.RESULT_BEGIN+' '+'ID=\''+key+'\'>\n'
+            stringResult += ResultXMLTag.CDATA_BEGIN+'\n'
+            stringResult +=  base64.b64encode(f.read()).decode('ascii')
+            stringResult += '\n'+ ResultXMLTag.CDATA_END+'\n'
+            stringResult += ResultXMLTag.RESULT_END+'\n'
+        stringResult += ResultXMLTag.ROOT_END
+        return stringResult
+    
 if __name__ == "__main__":
     client = Client(HOST, PORT)
     try:
-        client.connect()
-        client.downloadData()
+        client.connect()   
+        data = client.downloadData()
+        job = Job(data)
+        job.saveScena('scena.txt')
+        job.readTasks()
+        job.doTasks()
+        client.sendResult(job.getResult())
     except socket.error as ex:
+        logger.exception(ex)
+        sys.exit(1)
+    except Exception as ex:
         logger.exception(ex)
         sys.exit(1)
         
